@@ -216,13 +216,13 @@ export class CameraRoll {
    * Returns total iOS image count
    */
   static getPhotosCountiOS(): Promise<number> {
-    return RNCCameraRoll.getPhotosCountiOS('');
+    return RNCCameraRoll.getPhotosCountiOS();
   }
   /**
    * Returns favorites and their count iOS
    */
   static getFavoritesiOS(): Promise<Album> {
-    return RNCCameraRoll.getFavoritesiOS('');
+    return RNCCameraRoll.getFavoritesiOS();
   }
 
   /**

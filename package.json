@@ -21,6 +21,7 @@
     "prepare": "bob build",
     "start": "react-native start",
     "start:android": "react-native run-android --root example/",
+    "build:ios": "react-native bundle --entry-file='index.js' --bundle-output='./ios/main.jsbundle' --dev=false --platform='ios'",
     "start:ios": "react-native run-ios --project-path example/ios",
     "test": "yarn validate:eslint && yarn validate:flow && yarn validate:typescript && yarn test:jest",
     "lint": "eslint \"**/*.{js,ts,tsx}\"",

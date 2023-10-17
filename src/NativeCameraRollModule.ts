@@ -73,8 +73,8 @@ export interface Spec extends TurboModule {
   getPhotos(params: Object): Promise<PhotoIdentifiersPage>;
   getAlbums(params: Object): Promise<Album[]>;
   deletePhotos(photoUris: Array<string>): Promise<void>;
-  getPhotosCountiOS(): Promise<number>;
-  getFavoritesiOS(): Promise<Album>;
+  getPhotosCountiOS(arg: string): Promise<number>;
+  getFavoritesiOS(arg: string): Promise<Album>;
   getPhotoByInternalID(
     internalID: string,
     options: Object,

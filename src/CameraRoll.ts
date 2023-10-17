@@ -4,7 +4,7 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
-import {Platform} from 'react-native';
+import { Platform } from 'react-native';
 import RNCCameraRoll from './NativeCameraRollModule';
 
 const GROUP_TYPES_OPTIONS = {
@@ -213,51 +213,65 @@ export class CameraRoll {
   }
 
   /**
+   * Returns total iOS image count
+ */
+  static getPhotosCountiOS(): Promise<number> {
+    return RNCCameraRoll.getPhotosCountiOS('');
+  }
+  /**
+   * Returns favorites and their count iOS
+   */
+  static getFavoritesiOS(): Promise<Album> {
+    return RNCCameraRoll.getFavoritesiOS('');
+  }
+}
+
+  /**
    * Saves the photo or video to the camera roll or photo library.
    *
    */
   static save(
-    tag: string,
-    options: SaveToCameraRollOptions = {},
-  ): Promise<string> {
-    let {type = 'auto'} = options;
-    const {album = ''} = options;
-    if (tag === '') throw new Error('tag must be a valid string');
+  tag: string,
+  options: SaveToCameraRollOptions = {},
+): Promise < string > {
+  let { type = 'auto' } = options;
+const { album = '' } = options;
+if (tag === '') throw new Error('tag must be a valid string');
 
-    if (type === 'auto') {
-      const fileExtension = tag.split('.').slice(-1)[0] ?? '';
-      if (['mov', 'mp4'].indexOf(fileExtension.toLowerCase()) >= 0)
-        type = 'video';
-      else type = 'photo';
-    }
-    return RNCCameraRoll.saveToCameraRoll(tag, {type, album});
+if (type === 'auto') {
+  const fileExtension = tag.split('.').slice(-1)[0] ?? '';
+  if (['mov', 'mp4'].indexOf(fileExtension.toLowerCase()) >= 0)
+    type = 'video';
+  else type = 'photo';
+}
+return RNCCameraRoll.saveToCameraRoll(tag, { type, album });
   }
 
   static saveToCameraRoll(
-    tag: string,
-    type?: 'photo' | 'video' | 'auto',
-  ): Promise<string> {
-    console.warn(
-      'CameraRoll.saveToCameraRoll(tag, type) is deprecated.  Use the save function instead',
-    );
-    return CameraRoll.save(tag, {type});
-  }
+  tag: string,
+  type ?: 'photo' | 'video' | 'auto',
+): Promise < string > {
+  console.warn(
+    'CameraRoll.saveToCameraRoll(tag, type) is deprecated.  Use the save function instead',
+  );
+  return CameraRoll.save(tag, { type });
+}
 
   static getAlbums(
-    params: GetAlbumsParams = {assetType: 'All'},
-  ): Promise<Album[]> {
-    return RNCCameraRoll.getAlbums(params);
-  }
+  params: GetAlbumsParams = { assetType: 'All' },
+): Promise < Album[] > {
+  return RNCCameraRoll.getAlbums(params);
+}
 
   static getParamsWithDefaults(params: GetPhotosParams): GetPhotosParams {
-    const newParams = {...params};
-    if (newParams.assetType === undefined) newParams.assetType = 'All';
+  const newParams = { ...params };
+  if (newParams.assetType === undefined) newParams.assetType = 'All';
 
-    if (newParams.groupTypes === undefined && Platform.OS !== 'android')
-      newParams.groupTypes = 'All';
+  if (newParams.groupTypes === undefined && Platform.OS !== 'android')
+    newParams.groupTypes = 'All';
 
-    return newParams;
-  }
+  return newParams;
+}
 
   /**
    * Returns a Promise with photo identifier objects from the local camera
@@ -265,10 +279,10 @@ export class CameraRoll {
    *
    * See https://facebook.github.io/react-native/docs/cameraroll.html#getphotos
    */
-  static getPhotos(params: GetPhotosParams): Promise<PhotoIdentifiersPage> {
-    params = CameraRoll.getParamsWithDefaults(params);
-    return RNCCameraRoll.getPhotos(params);
-  }
+  static getPhotos(params: GetPhotosParams): Promise < PhotoIdentifiersPage > {
+  params = CameraRoll.getParamsWithDefaults(params);
+  return RNCCameraRoll.getPhotos(params);
+}
 
   /**
    * Returns a Promise with photo internal path.
@@ -279,14 +293,14 @@ export class CameraRoll {
    * @returns Promise<PhotoIdentifier>
    */
   static iosGetImageDataById(
-    internalID: string,
-    convertHeicImages = false,
-  ): Promise<PhotoIdentifier> {
-    const conversionOption: PhotoConvertionOptions = {
-      convertHeicImages: convertHeicImages,
-    };
-    return RNCCameraRoll.getPhotoByInternalID(internalID, conversionOption);
-  }
+  internalID: string,
+  convertHeicImages = false,
+): Promise < PhotoIdentifier > {
+  const conversionOption: PhotoConvertionOptions = {
+    convertHeicImages: convertHeicImages,
+  };
+  return RNCCameraRoll.getPhotoByInternalID(internalID, conversionOption);
+}
 
     /**
    * Returns a Promise with thumbnail photo.
@@ -295,7 +309,7 @@ export class CameraRoll {
    * @param options - thumbnail photo options.
    * @returns Promise<PhotoThumbnail>
    */
-    static getPhotoThumbnail(internalID: string, options: PhotoThumbnailOptions): Promise<PhotoThumbnail> {
-      return RNCCameraRoll.getPhotoThumbnail(internalID, options);
-    }
+    static getPhotoThumbnail(internalID: string, options: PhotoThumbnailOptions): Promise < PhotoThumbnail > {
+  return RNCCameraRoll.getPhotoThumbnail(internalID, options);
+}
 }

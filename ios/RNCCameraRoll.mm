@@ -816,13 +816,10 @@ RCT_EXPORT_METHOD(getPhotosCountiOS:(NSString *)blank
                   resolve:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 {
-    __block NSInteger intTotalCount=0;
     PHFetchOptions *allPhotosOptions = [PHFetchOptions new];
     allPhotosOptions.predicate = [NSPredicate predicateWithFormat:@"mediaType == %d ",PHAssetMediaTypeImage];
     PHFetchResult *allPhotosResult = [PHAsset fetchAssetsWithOptions:allPhotosOptions];
-    intTotalCount+=allPhotosResult.count;
-
-    resolve(@(intTotalCount));
+    resolve(@(allPhotosResult.count));
 }
 
 RCT_EXPORT_METHOD(getFavoritesiOS:(NSString *)blank
